@@ -1,0 +1,104 @@
+{% include 'header.html' %}
+{% load socialaccount %}
+{% load static %}
+
+<title>Register</title>
+<style>
+  .custom-margin-top {
+    margin-top: 8px !important;
+    margin-right: 10px;
+  }
+</style>
+<!-- Section: Design Block -->
+<div class="hero inner-page">
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      <div class="container">
+        <div class="row gx-lg-5 mt-5  align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight">
+              Register to <br />
+              <span class="text-danger">Car Rental</span>
+            </h1>
+            <p style="color: hsl(217, 10%, 50.8%)">
+              Sign up now to start renting cars hassle-free!
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5">
+                {% if errormessage %}
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                  <strong>Error!</strong> {{errormessage}}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                <form method="post" action="{% url 'registeruser' %}">
+                  {% csrf_token %}
+                  
+                  <div class="row">
+                    <!-- Left Section -->
+                    <div class="col-md-12">
+                      <!-- Username -->
+                      <div class="form-outline mb-4">
+                        <input type="text" id="uname" name="uname" class="form-control" />
+                        <label class="form-label" for="uname">Username</label>
+                      </div>
+                      </div>
+                    
+                    <!-- Right Section -->
+                    <div class="col-md-6">
+                      <!-- Password -->
+                      <div class="form-outline mb-4">
+                        <input type="passwd" id="passwd" name="passwd" class="form-control" />
+                        <label class="form-label" for="passwd">Password</label>
+                      </div>
+                      </div>
+                      <div class="col-md-6">
+    
+                      <!-- Confirm Password -->
+                      <div class="form-outline mb-4">
+                        <input type="cpasswd" id="cpasswd" name="cpasswd" class="form-control" />
+                        <label class="form-label" for="cpasswd">Confirm Password</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- Submit button -->
+                  <div class="row">
+                    <div class="col mb-4">
+                      <div class="box d-flex justify-content-between">
+                        <input type="submit" value="Sign Up" class="btn btn-danger btn-block custom-margin-top">
+                        <button type="button" class="btn btn-dark btn-block">
+                            <a class="text-white text-decoration-none" href="{% url 'index' %}">Cancel</a>
+                        </button>
+                        </div>
+                    </div>
+                  </div>
+  
+                  <!-- Register buttons -->
+                  <div class="text-center">
+                    <p>or sign up with:</p>
+  
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                      <a  href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1047467401947-ckt96s0uuoak2st5rq1c3tcubh0lbqqi.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=email%20profile&response_type=code&state=kAu517ZDRSdyaq0i&access_type=online&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow" class="btn btn-link btn-floating mx-1">
+                        <i class="icon-google text-danger"></i>
+                    </a>                    
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+  </section>
+  <!-- Section: Design Block -->
+{% include 'footer.html' %}
+
+

@@ -1,0 +1,45 @@
+{% load static %}
+{% include 'header.html' %}
+
+<div class="hero inner-page">
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-lg-5">
+        <div class="intro">
+          <h1><strong>Fill up form</strong></h1>
+          <div class="custom-breadcrumbs">
+            <a href="index.html">Home</a> <span class="mx-2">/</span> <strong>Listings</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if errormessage %}
+      <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <strong>Error!</strong> {{errors}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+<div class="site-section bg-light">
+  <div class="container">
+
+    {% block content %}
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ wizard.management_form }}
+      {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+          {{ form }}
+        {% endfor %}
+      {% else %}
+        {{ wizard.form }}
+      {% endif %}
+      <input type="submit" value="Submit">
+    </form>
+    {% endblock %}
+  </div>
+</div>
+
+{% include 'footer.html' %}

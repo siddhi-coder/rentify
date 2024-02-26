@@ -1,0 +1,240 @@
+{% load static %}
+{% include 'header.html' %}
+
+        <div class="hero" style="background-image: url('{% static "images/hero_1_a.jpg" %}')">
+
+        
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10">
+
+              <div class="row mb-5">
+                <div class="col-lg-7 intro">
+                  <h1><strong>Rent a car</strong> is within your finger tips.</h1>
+                </div>
+              </div>
+              
+              <form class="trip-form" action="{% url 'search_cars' %}" method="get" onsubmit="return validateForm()">
+                {% csrf_token %}
+
+                <div class="row align-items-center">
+
+                    <div class="mb-3 mb-md-0 col-md-3">
+                      <select name="car_name" id="car_name" class="custom-select form-control">
+                        <option value="">Select Type</option>
+                        {% for car in allproducts %}
+                        <option value="{{ car.car_name }}">{{ car.car_name }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="mb-3 mb-md-0 col-md-3">
+                      <div class="form-control-wrap">
+                          <input type="date" id="start_date" name="start_date" placeholder="Pick up" class="form-control datepicker px-3" data-toggle="datepicker">
+                      </div>
+                  </div>
+                  <div class="mb-3 mb-md-0 col-md-3">
+                      <div class="form-control-wrap">
+                          <input type="date" id="end_date" name="end_date" placeholder="Drop off" class="form-control datepicker px-3" data-toggle="datepicker">
+                      </div>
+                  </div>
+                    <div class="mb-3 mb-md-0 col-md-3">
+                        <input type="submit" value="Search Now" class="btn btn-danger btn-block py-3">
+                    </div>
+                </div>
+            </form>
+
+            <!-- Display Selected Car Type, Pick Up Date, and Drop Off Date -->
+            {% if car_type %}
+                <p>Selected Car Type: {{ car_type }}</p>
+            {% endif %}
+
+            {% if pick_up_date %}
+                <p>Pick Up Date: {{ pick_up_date }}</p>
+            {% endif %}
+
+            {% if drop_off_date %}
+                <p>Drop Off Date: {{ drop_off_date }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-lg-7">
+            <h2 class="section-heading"><strong>Car Listings</strong></h2>
+            <p class="mb-5">Discover Your Ideal Ride: Browse Through Our Diverse Fleet of High-Quality Car Rentals.</p>
+        </div>
+        <div class="col-lg-5 d-flex justify-content-end">
+            <button class="btn btn-danger"><a class="text-white" href="{% url 'listing' %}">View More</a></button>
+        </div>
+    </div>
+
+        <!-- Display Car Listings -->
+        <div class="row">
+          {% for i in allproducts|slice:":3" %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="listing d-block align-items-stretch">
+                        <div class="listing-img h-100 mr-4">
+                            <img src="{{ i.image.url }}" width="550px" height="250px" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="listing-contents h-100">
+                            <h3>{{ i.car_name }}</h3>
+                            <div class="rent-price">
+                                <strong>${{ i.price }}</strong><span class="mx-1">/</span>day
+                            </div>
+                            <div class="d-block d-md-flex mb-3 border-bottom pb-3">
+                                <div class="listing-feature pr-4">
+                                    <span class="caption">Luggage:</span>
+                                    <span class="number">{{ i.Luggage }}</span>
+                                </div>
+                                <div class="listing-feature pr-4">
+                                    <span class="caption">Doors:</span>
+                                    <span class="number">{{ i.Doors }}</span>
+                                </div>
+                                <div class="listing-feature pr-4">
+                                    <span class="caption">Passenger:</span>
+                                    <span class="number">{{ i.Passenger }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p>{{ i.description }}</p>
+                                <p><a href="{% url 'rent_form' i.carproductid  %}" class="btn btn-danger btn-sm">Rent Now</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+
+      <div class="site-section bg-light">
+        <div class="container">
+          <h2 class="section-heading"><strong>How it works?</strong></h2>
+          <p class="mb-5">Easy steps to get you started</p>    
+
+          <div class="row mb-5">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="step">
+                <span>1</span>
+                <div class="step-inner">
+                  <span class="number text-danger">01.</span>
+                  <h3>Select a car</h3>
+                  <p>Selecting a car for your specific needs and preferences can be a personalized journey, but considering factors like fuel efficiency, safety features, and stylish design.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="step">
+                <span>2</span>
+                <div class="step-inner">
+                  <span class="number text-danger">02.</span>
+                  <h3>Fill up form</h3>
+                  <p>
+                    Complete the "Personal Information" form by supplying accurate details such as your full name, address, and contact information in order to facilitate proper processing.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+              <div class="step">
+                <span>3</span>
+                <div class="step-inner">
+                  <span class="number text-danger">03.</span>
+                  <h3>Payment</h3>
+                  <p>
+                    Explore our hassle-free payment options when booking your car rental on our website, ensuring a seamless and secure transaction for your convenience.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div> 
+
+                
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            <h2 class="section-heading"><strong>Features</strong></h2>
+            <p class="mb-5">Key Features for Your Journey: Discover the Benefits of Our Car Rental Service.</p>    
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 mb-5">
+            <div class="service-1 dark">
+              <span class="service-1-icon">
+                <span class="icon-check-circle"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3>Wide Vehicle Selection</h3>
+                <p>Choose from a diverse range of vehicles, including compact cars, SUVs, and luxury models, tailored to meet your specific needs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-5">
+            <div class="service-1 dark">
+              <span class="service-1-icon">
+                <span class="icon-watch_later"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3>Flexible Rental Durations</h3>
+                <p>Enjoy the freedom to rent by the hour, day, week, or even longer, providing you with flexibility for various travel plans.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-5">
+            <div class="service-1 dark">
+              <span class="service-1-icon">
+                <span class="icon-inr"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3>Transparent Pricing</h3>
+                <p>Benefit from clear and straightforward pricing with no hidden fees, ensuring you have a complete understanding of the costs associated with your rental.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-5">
+            <div class="service-1 dark">
+              <span class="service-1-icon">
+                <span class="icon-verified_user"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3>Easy Online Booking</h3>
+                <p>Enjoy a user-friendly booking experience on our website or app, allowing you to reserve your desired car with just a few clicks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+<script>
+  function validateForm() {
+      var carType = document.getElementById("carType").value;
+      var pickUpDate = document.getElementById("pickUpDate").value;
+      var dropOffDate = document.getElementById("dropOffDate").value;
+
+      if (carType === "") {
+          alert("Please select a car type");
+          return false;
+      }
+
+      if (pickUpDate === "") {
+          alert("Please select a pick up date");
+          return false;
+      }
+
+      if (dropOffDate === "") {
+          alert("Please select a drop off date");
+          return false;
+      }
+
+      return true; // Form submission will proceed if all validations pass
+  }
+</script>
+    {% include 'footer.html' %}

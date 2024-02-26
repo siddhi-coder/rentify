@@ -1,0 +1,66 @@
+{% include 'header.html' %}
+{% load static %}
+{% load socialaccount %}
+
+<title>Login</title>
+<div class="col-md-4 mt-5 mx-auto shadow p-5 mb-5 login" style="margin-top: 6rem!important;">
+    <h1>Login</h1>
+    <div class="row">
+      {% if errormessage %}
+      <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <strong>Error!</strong> {{errormessage}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+        <form method="post" action="" enctype="multipart/form-data" >
+          {% csrf_token %}  
+          <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="form2Example1" name="uname" class="form-control" />
+              <label class="form-label" for="form2Example1">Username </label>
+            </div>
+          
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <input type="password" id="form2Example2" name="passwd" class="form-control" />
+              <label class="form-label" for="form2Example2">Password</label>
+            </div>
+          
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-4">
+              <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check">
+                  <input class="form-check-input bg-outline-danger" type="checkbox" value="" id="form2Example31" checked />
+                  <label class="form-check-label" for="form2Example31"> Remember me </label>
+                </div>
+              </div>
+          
+              <div class="col">
+                <!-- Simple link -->
+                <a href="#!" class="text-danger">Forgot password?</a>
+              </div>
+            </div>
+          
+            <!-- Submit button -->
+            <input type="submit" value="Sign in" class="btn btn-danger btn-block mb-4">
+            <button type="button" class="btn btn-danger btn-block mb-4"><a class ="text-white text-decoration-none"  href="{% url 'index' %}">Cancel</a></button>
+          
+            <!-- Register buttons -->
+            <div class="text-center">
+              <p>or sign up with:</p>
+
+<!-- Button for logging in with Google -->
+<button type="button" class="btn btn-link btn-floating mx-1">
+  <a href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1047467401947-ckt96s0uuoak2st5rq1c3tcubh0lbqqi.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=email%20profile&response_type=code&state=mJ1AbjBrEPJNWQwU&access_type=online&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow" class="btn btn-link btn-floating mx-1">
+      <img src="{% static 'images/google.svg' %}" alt="Google Logo" class="icon-google"> Login With Google
+  </a>                    
+</button>
+
+            
+            </div>
+          </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
