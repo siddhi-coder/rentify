@@ -20,5 +20,6 @@ urlpatterns = [
     path('payment-success/<int:carproductid>/', views.PaymentSuccessful, name='payment-success'),
     path('payment-failed/<int:carproductid>/', views.paymentFailed, name='payment-failed'),
     path('contactus/', views.contactus, name='contactus'),
+    path('social-auth/',include('social_django.urls', namespace='social')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

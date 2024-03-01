@@ -14,6 +14,8 @@ from django.core.serializers import serialize
 from paypal.standard.forms import PayPalPaymentsForm
 import uuid
 from django.urls import reverse
+from datetime import datetime
+from django.contrib.auth.models import User
 
 
 
@@ -173,7 +175,7 @@ def rent_form(request, carproductid):
     try:
         car_product = Car_Product.objects.exclude(status='Scheduled').get(pk=carproductid) 
     except Car_Product.DoesNotExist:
-        return render(request, 'error_page.html', {'error_message': "The car is not available for rental."},context) 
+        return render(request, 'error_page.html',context) 
 
     if request.method == 'POST':
         request.session['carproductid'] = carproductid
